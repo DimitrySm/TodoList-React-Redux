@@ -6,8 +6,8 @@ import {
   changeTaskTitleAC,
   removeTaskAC,
   tasksReducer,
-} from "./tasks-reducer";
-import { addTodolistAC, removeTodolistAC } from "./todolists-reducer";
+} from "../state/tasks-reducer";
+import { addTodolistAC, removeTodolistAC } from "../state/todolists-reducer";
 
 let startState: TasksStateType;
 
