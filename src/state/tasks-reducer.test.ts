@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { TasksStateType } from "../App";
 import {
   addTaskAC,

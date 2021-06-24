@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { v1 } from "uuid";
 import { FilterValuesType, TodolistType } from "../App";
 
@@ -30,7 +31,7 @@ export type ChangeTodolistFilterActionType = {
 export const todolistsReducer = (
   state: Array<TodolistType>,
   action: ActionType
-) => {
+): Array<TodolistType> => {
   switch (action.type) {
     case "REMOVE-TODOLIST":
       return state.filter((tl) => tl.id != action.id);
