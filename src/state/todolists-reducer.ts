@@ -14,6 +14,7 @@ export type RemoveTodolistActionType = {
 export type AddTodolistActionType = {
   type: "ADD-TODOLIST";
   title: string;
+  todolistId: string;
 };
 export type ChangeTodolistTitleActionType = {
   type: "CHANGE-TODOLIST-TITLE";
@@ -34,16 +35,22 @@ export const todolistsReducer = (
     case "REMOVE-TODOLIST":
       return state.filter((tl) => tl.id != action.id);
     case "ADD-TODOLIST":
-      return [...state, { id: v1(), title: action.title, filter: "all" }];
-    case "CHANGE-TODOLIST-TITLE":
+      return [
+        ...state,
+        { id: action.todolistId, title: action.title, filter: "all" },
+      ];
+    case "CHANGE-TODOLIST-TITLE": {
       const todolist = state.find((tl) => tl.id === action.id);
       if (todolist) {
+        // если нашёлся - изменим ему заголовок
         todolist.title = action.title;
       }
       return [...state];
+    }
     case "CHANGE-TODOLIST-FILTER": {
-      let todolist = state.find((tl) => tl.id === action.id);
+      const todolist = state.find((tl) => tl.id === action.id);
       if (todolist) {
+        // если нашёлся - изменим ему заголовок
         todolist.filter = action.filter;
       }
       return [...state];
@@ -53,24 +60,24 @@ export const todolistsReducer = (
   }
 };
 
-export const RemoveTodolistAC = (
+export const removeTodolistAC = (
   todolistId: string
 ): RemoveTodolistActionType => {
   return { type: "REMOVE-TODOLIST", id: todolistId };
 };
 
-export const AddTodolistAC = (title: string): AddTodolistActionType => {
-  return { type: "ADD-TODOLIST", title: title };
+export const addTodolistAC = (title: string): AddTodolistActionType => {
+  return { type: "ADD-TODOLIST", title: title, todolistId: v1() };
 };
 
-export const ChangeTodolistTitleAC = (
+export const changeTodolistTitleAC = (
   todolistId: string,
   title: string
 ): ChangeTodolistTitleActionType => {
   return { type: "CHANGE-TODOLIST-TITLE", id: todolistId, title: title };
 };
 
-export const ChangeTodolistFilterAC = (
+export const changeTodolistFilterAC = (
   todolistId: string,
   filter: FilterValuesType
 ): ChangeTodolistFilterActionType => {
