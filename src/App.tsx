@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
