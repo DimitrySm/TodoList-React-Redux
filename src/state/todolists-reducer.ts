@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { v1 } from "uuid";
 import { FilterValuesType, TodolistType } from "../App";
 
@@ -27,10 +28,12 @@ export type ChangeTodolistFilterActionType = {
   filter: FilterValuesType;
 };
 
+const initialState: Array<TodolistType> = [];
+
 export const todolistsReducer = (
-  state: Array<TodolistType>,
+  state: Array<TodolistType> = initialState,
   action: ActionType
-) => {
+): Array<TodolistType> => {
   switch (action.type) {
     case "REMOVE-TODOLIST":
       return state.filter((tl) => tl.id != action.id);
@@ -56,7 +59,7 @@ export const todolistsReducer = (
       return [...state];
     }
     default:
-      throw new Error("I don't understand this type");
+      return state;
   }
 };
 
