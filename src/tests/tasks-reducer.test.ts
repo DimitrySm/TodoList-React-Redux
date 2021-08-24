@@ -71,7 +71,6 @@ test("title of specified task should be changed", () => {
   const endState = tasksReducer(startState, action);
 
   expect(endState["todolistId2"][1].title).toBe("coffe");
-  expect(endState["todolistId2"][2].title).toBe("tea");
 });
 
 test("new property with new array should be added when new todolist is added", () => {

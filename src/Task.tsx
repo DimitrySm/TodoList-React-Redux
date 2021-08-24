@@ -4,7 +4,7 @@ import { EditableSpan } from "./EditableSpan";
 import { Delete } from "@material-ui/icons";
 import { TaskType } from "./Todolist";
 
-type TaskPropsType = {
+export type TaskPropsType = {
   changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void;
   changeTaskTitle: (
     taskId: string,
@@ -17,18 +17,17 @@ type TaskPropsType = {
 };
 
 export const Task = React.memo((props: TaskPropsType) => {
-  const onClickHandler = () =>
-    props.removeTask(props.task.id, props.todolistId);
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onClickHandler = useCallback(() =>
+    props.removeTask(props.task.id, props.todolistId), [props]);
+
+  const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     let newIsDoneValue = e.currentTarget.checked;
     props.changeTaskStatus(props.task.id, newIsDoneValue, props.todolistId);
-  };
-  const onTitleChangeHandler = useCallback(
-    (newValue: string) => {
-      props.changeTaskTitle(props.task.id, newValue, props.todolistId);
-    },
-    [props]
-  );
+  }, [props]);
+
+  const onTitleChangeHandler = useCallback((newValue: string) => {
+    props.changeTaskTitle(props.task.id, newValue, props.todolistId);
+  }, [props]);
 
   return (
     <div key={props.task.id} className={props.task.isDone ? "is-done" : ""}>
